@@ -1,9 +1,9 @@
 mod utils;
 
-use wasm_bindgen::prelude::*;
-use std::{cell, fmt};
-use js_sys::{self, Math::random};
 use fixedbitset::FixedBitSet;
+use js_sys::{self, Math::random};
+use std::fmt;
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 extern "C" {
@@ -38,7 +38,7 @@ impl Universe {
         Universe {
             width,
             height,
-            cells
+            cells,
         }
     }
 
@@ -68,13 +68,16 @@ impl Universe {
                 let live_neighbors = self.live_neighbor_count(row, col);
                 println!("{}", idx);
 
-                next.set(idx, match (cell, live_neighbors) {
-                    (true, x) if x < 2 => false,
-                    (true, 2) | (true, 3) => true,
-                    (true, x) if x > 3 => false,
-                    (false, 3) => true,
-                    (otherwise, _) => otherwise
-                });
+                next.set(
+                    idx,
+                    match (cell, live_neighbors) {
+                        (true, x) if x < 2 => false,
+                        (true, 2) | (true, 3) => true,
+                        (true, x) if x > 3 => false,
+                        (false, 3) => true,
+                        (otherwise, _) => otherwise,
+                    },
+                );
             }
         }
 
@@ -88,7 +91,7 @@ impl Universe {
     fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
         let mut count = 0;
         for delta_row in [self.height - 1, 0, 1].iter().cloned() {
-            for delta_col in [self.width -1, 0, 1].iter().cloned() {
+            for delta_col in [self.width - 1, 0, 1].iter().cloned() {
                 if delta_row == 0 && delta_col == 0 {
                     continue;
                 }
@@ -106,7 +109,11 @@ impl fmt::Display for Universe {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for line in self.cells.as_slice().chunks(self.width as usize) {
             for &cell in line {
-                let symbol = if self.cells.contains(cell) == false { '◻' } else { '◼' };
+                let symbol = if self.cells.contains(cell) == false {
+                    '◻'
+                } else {
+                    '◼'
+                };
                 write!(f, "{}", symbol)?;
             }
             write!(f, "\n")?;
@@ -114,4 +121,3 @@ impl fmt::Display for Universe {
         Ok(())
     }
 }
-
