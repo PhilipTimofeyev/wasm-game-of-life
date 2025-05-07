@@ -1,4 +1,6 @@
+#[macro_use]
 mod utils;
+extern crate web_sys;
 
 use fixedbitset::FixedBitSet;
 use js_sys::{self, Math::random};
@@ -20,6 +22,8 @@ pub struct Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
+        utils::set_panic_hook();
+        
         let width = 64;
         let height = 64;
 
@@ -78,15 +82,26 @@ impl Universe {
                 let idx = self.get_index(row, col);
                 let cell = self.cells.contains(idx);
                 let live_neighbors = self.live_neighbor_count(row, col);
-                println!("{}", idx);
 
                 next.set(
                     idx,
                     match (cell, live_neighbors) {
-                        (true, x) if x < 2 => false,
-                        (true, 2) | (true, 3) => true,
-                        (true, x) if x > 3 => false,
-                        (false, 3) => true,
+                        (true, x) if x < 2 => {
+                            log!("Row: {}, Col: {} died", row, col);
+                            false
+                        },
+                        (true, 2) | (true, 3) => {
+                            log!("Row: {}, Col: {} survived", row, col);
+                            true
+                        },
+                        (true, x) if x > 3 => {
+                            log!("Row: {}, Col: {} died", row, col);
+                            false
+                        },
+                        (false, 3) => {
+                            log!("Row: {}, Col: {} resurrected", row, col);
+                            true
+                        },
                         (otherwise, _) => otherwise,
                     },
                 );
