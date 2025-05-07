@@ -46,6 +46,26 @@ impl Universe {
         }
     }
 
+    pub fn new_empty() -> Universe {
+        utils::set_panic_hook();
+        
+        let width = 64;
+        let height = 64;
+
+        let size = (width * height) as usize;
+        let mut cells = FixedBitSet::with_capacity(size);
+
+        for i in 0..size {
+            cells.set(i, false);
+        }
+
+        Universe {
+            width,
+            height,
+            cells,
+        }
+    }
+
     pub fn render(&self) -> String {
         self.to_string()
     }
