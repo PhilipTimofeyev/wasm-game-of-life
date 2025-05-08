@@ -1,84 +1,40 @@
-<div align="center">
+# Game of Life
 
-  <h1><code>wasm-pack-template</code></h1>
 
-  <strong>A template for kick starting a Rust and WebAssembly project using <a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a>.</strong>
 
-  <p>
-    <a href="https://travis-ci.org/rustwasm/wasm-pack-template"><img src="https://img.shields.io/travis/rustwasm/wasm-pack-template.svg?style=flat-square" alt="Build Status" /></a>
-  </p>
+Game of Life is a project that uses Rust and WebAssembly to create a visual representation of John Conway's Game of Life, which is a graph of cells that can be represented in either a live or dead state. 
 
-  <h3>
-    <a href="https://rustwasm.github.io/docs/wasm-pack/tutorials/npm-browser-packages/index.html">Tutorial</a>
-    <span> | </span>
-    <a href="https://discordapp.com/channels/442252698964721669/443151097398296587">Chat</a>
-  </h3>
+A cell becomes dead or alive based on four rules:
 
-  <sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub>
-</div>
+1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+2. Any live cell with two or three live neighbours lives on to the next generation.
+3. Any live cell with more than three live neighbours dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-## About
 
-[**📚 Read this template tutorial! 📚**][template-docs]
 
-This template is designed for compiling Rust libraries into WebAssembly and
-publishing the resulting package to NPM.
+![Example Image](readme_assets/game-of-life.png)
 
-Be sure to check out [other `wasm-pack` tutorials online][tutorials] for other
-templates and usages of `wasm-pack`.
 
-[tutorials]: https://rustwasm.github.io/docs/wasm-pack/tutorials/index.html
-[template-docs]: https://rustwasm.github.io/docs/wasm-pack/tutorials/npm-browser-packages/index.html
 
-## 🚴 Usage
+## Installation
 
-### 🐑 Use `cargo generate` to Clone this Template
+1. Clone the repository: `git clone https://github.com/PhilipTimofeyev/wasm-game-of-life.git`
+2. Navigate to the project directory: `cd wasm-game-of-life`
+3. Build the project: `wasm-pack build`
+4. Navigate to `www`: `cd www`
+5. Install the npm dependencies: `npm install`
 
-[Learn more about `cargo generate` here.](https://github.com/ashleygwilliams/cargo-generate)
+## Usage
 
-```
-cargo generate --git https://github.com/rustwasm/wasm-pack-template.git --name my-project
-cd my-project
-```
+1. Start the development server: `npm run start`
+2. Open `http://localhost:8080/` in your browser to view and play the game.
+3. The 64 x 64 cell grid can be instantiated with random states or empty, allowing the user to toggle a cell's state by clicking on it.
+4.  A glider can be created by shift + clicking a cell, or a pulsar by option + clicking a cell.
 
-### 🛠️ Build with `wasm-pack build`
 
-```
-wasm-pack build
-```
-
-### 🔬 Test in Headless Browsers with `wasm-pack test`
-
-```
-wasm-pack test --headless --firefox
-```
-
-### 🎁 Publish to NPM with `wasm-pack publish`
-
-```
-wasm-pack publish
-```
-
-## 🔋 Batteries Included
-
-* [`wasm-bindgen`](https://github.com/rustwasm/wasm-bindgen) for communicating
-  between WebAssembly and JavaScript.
-* [`console_error_panic_hook`](https://github.com/rustwasm/console_error_panic_hook)
-  for logging panic messages to the developer console.
-* `LICENSE-APACHE` and `LICENSE-MIT`: most Rust projects are licensed this way, so these are included for you
 
 ## License
 
-Licensed under either of
+Game of Life is licensed under the MIT license. See [LICENSE](https://opensource.org/license/mit) for more information.
 
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
-* MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
-at your option.
-
-### Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally
-submitted for inclusion in the work by you, as defined in the Apache-2.0
-license, shall be dual licensed as above, without any additional terms or
-conditions.
