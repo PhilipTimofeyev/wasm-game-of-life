@@ -2,7 +2,7 @@
 
 
 
-Game of Life is a project that uses Rust and WebAssembly to create a visual representation of John Conway's Game of Life, which is a graph of cells that can be represented in either a live or dead state. 
+This is a project that uses Rust compiled to WebAssembly to create the backend of the game, and interfaces with HTML, CSS and Javascript to provide the visual representation of John Conway's Game of Life, which is a graph of cells that can be represented in either a live or dead state, and evolve based on a cell's neighbors.
 
 A cell becomes dead or alive based on four rules:
 
